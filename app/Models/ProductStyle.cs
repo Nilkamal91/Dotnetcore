@@ -25,7 +25,7 @@ namespace app.Models
         using (MySqlConnection conn = GetConnection())  
         {  
             conn.Open();  
-            MySqlCommand cmd = new MySqlCommand("select * from XXIBM_PRODUCT_STYLE where Item Number < 10", conn);  
+            MySqlCommand cmd = new MySqlCommand("select * from XXIBM_PRODUCT_STYLE where Item_Number", conn);  
       
             using (var reader = cmd.ExecuteReader())  
             {  
@@ -33,10 +33,10 @@ namespace app.Models
                 {  
                     list.Add(new XXIBM_PRODUCT_STYLE()  
                     {  
-                        Item Number = Convert.ToInt32(reader["Item Number"]),  
+                        Item_Number = Convert.ToInt32(reader["Item_Number"]),  
                         Description = reader["Description"].ToString(),  
-                        Long Description = reader["Long Description"].ToString(),  
-                        Catalogue Category = Convert.ToInt32(reader["Catalogue Category"]),  
+                        Long_Description = reader["Long_Description"].ToString(),  
+                        Catalogue_Category = Convert.ToInt32(reader["Catalogue_Category"]),  
                         Brand = reader["Brand"].ToString()  
                     });  
                 }  
