@@ -1,25 +1,29 @@
-﻿@using app.Models;
-@model IEnumerable<app.Models.XXIBM_PRODUCT_STYLE>
+﻿@model IEnumerable<app.Models.XXIBM_PRODUCT_STYLE>
 @{
-    ViewData["Title"] = "Style List";
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>@ViewData["Title"]</h2>
-<!--<h3>@ViewData["Message"]</h3>-->
 
-<div style="font-family:Arial">
-<Table cellpadding="0" cellspacing="0">
-<tr>
-<th>ITEM NUMBER</th>
-<th>DESCRIPTION</th>
-<th>LONG_DESCRIPTION</th>
-</tr>
-	@foreach (XXIBM_PRODUCT_STYLE style in Model)
+<h2>XXIBM_PRODUCT_STYLEs</h2>
+<table class="table">
+ <tr>
+   <th>Item_Number</th>
+   <th>Description</th>
+   <th>Long_Description</th>
+ </tr>
+ @foreach (var item in Model)
 	{
 	<tr>
-		<TD>@style.Item_Number</TD>
-		<TD>@style.Description</TD>
-		<TD>@style.Long_Description</TD>
+	   <td>
+             @html.DisplayFor(modelItem => item.Item_Number)
+           </td>
+           <td>
+             @html.DisplayFor(modelItem => item.Description)
+           </td>
+           <td>
+             @html.DisplayFor(modelItem => item.Long_Description)
+           </td>	
 	</tr>
 	}
-</ul>
-</div>
+</table>
+
