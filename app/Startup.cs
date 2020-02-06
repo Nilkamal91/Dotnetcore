@@ -9,15 +9,21 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace app
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+        public Startup(IHostingEnvironment env)  
+            {  
+                var builder = new ConfigurationBuilder()  
+                    .SetBasePath(env.ContentRootPath)  
+                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)  
+                    .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)  
+                    .AddEnvironmentVariables();  
+                Configuration = builder.Build();  
+            }  
 
         public IConfiguration Configuration { get; }
 
@@ -31,13 +37,19 @@ namespace app
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+       // Add framework services.  
+            services.AddMvc();  
+            services.Add(new ServiceDescriptor(typeof(ProductStyle), new ProductStyle(Configuration.GetConnectionString("DefaultConnection"))));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));  
+            loggerFactory.AddDebug();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
