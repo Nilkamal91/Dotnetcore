@@ -25,7 +25,7 @@ namespace app.Models
         using (MySqlConnection conn = GetConnection())  
         {  
             conn.Open();  
-            MySqlCommand cmd = new MySqlCommand("select * from XXIBM_PRODUCT_STYLE where Item_Number", conn);  
+            MySqlCommand cmd = new MySqlCommand("select * from XXIBM_PRODUCT_STYLE", conn);  
       
             using (var reader = cmd.ExecuteReader())  
             {  
