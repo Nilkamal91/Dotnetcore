@@ -1,0 +1,37 @@
+﻿@using app.Models;
+@model IEnumerable<app.Models.ProductModel>
+@{
+    ViewData["Title"] = "PRODUCT STYLE LIST";
+}
+<h2>@ViewData["Title"]</h2>
+<!--<h3>@ViewData["Message"]</h3>-->
+
+<div style="font-family:Arial">
+<Table cellpadding="5" cellspacing="2" border="1">
+<tr>
+<th>ITEM NUMBER</th>
+<th>DESCRIPTION</th>
+<th>LONG_DESCRIPTION</th>
+<th>CATALOGUE_CATEGORY</th>
+<th>BRAND</th>
+
+</tr>
+	@foreach (ProductModel style in Model)
+	{
+	<tr>
+		<TD>@style.ITEM_NUMBER</TD>
+		<TD>@style.DESCRIPTION</TD>
+		<TD>@style.LONG_DESCRIPTION</TD>
+		<TD>@style.CATALOGUE_CATEGORY</TD>
+		<TD>@style.BRAND</TD>
+	</tr>
+	}
+</ul>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+</div>
+
